@@ -53,6 +53,24 @@ app.post('/todos', async (req, res) => {
 })
 
 app.patch('/todos/:id', async (req, res) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    return res.status(404).json({ message: 'Invalid ID format' })
+  }
+
+  try {
+    const updatedTodo = await Todo.findByIdAndUpdate(
+      req.params.id,
+      { text: req.body.text },
+      { new: true }
+    )
+    if (!updatedTodo) return res.status(404).json({ message: 'Todo not found' })
+    res.json(updatedTodo)
+  } catch (err) {
+    res.status(500).json({ message: err.message })
+  }
+})
+
+app.patch('/todos/:id', async (req, res) => {
   try {
     const updatedTodo = await Todo.findByIdAndUpdate(
       req.params.id,
@@ -74,10 +92,10 @@ app.delete('/todos/:id', async (req, res) => {
   }
 })
 
-// // Catch-all to serve index.html for any non-API routes
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, '../client/index.html'))
-// })
+// Catch-all to serve index.html for any non-API routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/index.html'))
+})
 
 // Start Server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
