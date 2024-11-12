@@ -6,9 +6,21 @@ document.addEventListener('DOMContentLoaded', () => {
   // Function to load todos from the server
   async function loadTodos() {
     try {
+      // Fetch the list of todos from the backend
       const response = await fetch('https://todo2024-7feb.onrender.com/todos')
+
+      // Check if the response is successful
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`)
+      }
+
       const todos = await response.json()
 
+      // Clear the existing todos in the DOM to avoid duplication
+      const todoList = document.getElementById('todo-list')
+      todoList.innerHTML = ''
+
+      // Add each todo to the DOM
       todos.forEach((todo) => {
         addTodoToDOM(todo)
       })
@@ -47,6 +59,23 @@ document.addEventListener('DOMContentLoaded', () => {
     listItem.appendChild(textSpan)
     listItem.appendChild(deleteButton)
     todoList.appendChild(listItem)
+  }
+
+  // Example function to add a new todo
+  function addTodo(text) {
+    fetch('https://todo2024-7feb.onrender.com/todos', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ text: text, completed: false }), // Send new todo to backend
+    })
+      .then((response) => response.json())
+      .then((newTodo) => {
+        console.log('Todo added:', newTodo)
+        fetchTodos() // Re-fetch the todos to update the list
+      })
+      .catch((error) => console.error('Error adding todo:', error))
   }
 
   async function toggleComplete(id, isCompleted) {

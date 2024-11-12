@@ -32,7 +32,7 @@ app.get('*', (req, res) => {
 })
 
 // To-Do Model
-const Todo = require('./models/todo.js')
+const Todo = require('./models/Todo.js')
 
 // Routes
 app.get('/todos', async (req, res) => {
