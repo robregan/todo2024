@@ -26,11 +26,6 @@ const path = require('path')
 // Serve static files from the client folder
 app.use(express.static(path.join(__dirname, '../client')))
 
-// Catch-all to serve index.html for any non-API routes
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/index.html'))
-})
-
 // To-Do Model
 const Todo = require('./models/todo')
 
@@ -77,6 +72,11 @@ app.delete('/todos/:id', async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message })
   }
+})
+
+// Catch-all to serve index.html for any non-API routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/index.html'))
 })
 
 // Start Server
