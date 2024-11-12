@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Function to load todos from the server
   async function loadTodos() {
     try {
-      const response = await fetch('https://todo2024-7feb.onrender.com')
+      const response = await fetch('https://todo2024-7feb.onrender.com/todos')
       const todos = await response.json()
 
       todos.forEach((todo) => {
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function toggleComplete(id, isCompleted) {
     try {
-      await fetch(`https://todo2024-7feb.onrender.com/${id}`, {
+      await fetch(`https://todo2024-7feb.onrender.com/todos/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ completed: isCompleted }),
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!taskText) return
 
     try {
-      const response = await fetch('https://todo2024-7feb.onrender.com', {
+      const response = await fetch('https://todo2024-7feb.onrender.com/todos', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Function to delete a todo
   async function deleteTodo(id) {
     try {
-      await fetch(`https://todo2024-7feb.onrender.com/${id}`, {
+      await fetch(`https://todo2024-7feb.onrender.com/todos/${id}`, {
         method: 'DELETE',
       })
       const listItem = document.querySelector(`li[data-id='${id}']`)
