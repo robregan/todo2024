@@ -74,10 +74,10 @@ app.delete('/todos/:id', async (req, res) => {
   }
 })
 
-// Catch-all to serve index.html for any non-API routes
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/index.html'))
-})
+// // Catch-all to serve index.html for any non-API routes
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../client/index.html'))
+// })
 
 // Start Server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
