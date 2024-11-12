@@ -2,7 +2,7 @@
     "name": "the most fancy todo app you ever did see",
     "version": "1.0.0",
     "engines": {
-      "node": "18.x"
+      "node": "16.x"
     },
     "dependencies": {}
   }
