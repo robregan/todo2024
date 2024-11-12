@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Function to load todos from the server
   async function loadTodos() {
     try {
-      const response = await fetch('http://localhost:5000/todos')
+      const response = await fetch('https://todo2024-7feb.onrender.com')
       const todos = await response.json()
 
       todos.forEach((todo) => {
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function toggleComplete(id, isCompleted) {
     try {
-      await fetch(`http://localhost:5000/todos/${id}`, {
+      await fetch(`https://todo2024-7feb.onrender.com/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ completed: isCompleted }),
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!taskText) return
 
     try {
-      const response = await fetch('http://localhost:5000/todos', {
+      const response = await fetch('https://todo2024-7feb.onrender.com', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Function to delete a todo
   async function deleteTodo(id) {
     try {
-      await fetch(`http://localhost:5000/todos/${id}`, {
+      await fetch(`https://todo2024-7feb.onrender.com/${id}`, {
         method: 'DELETE',
       })
       const listItem = document.querySelector(`li[data-id='${id}']`)
